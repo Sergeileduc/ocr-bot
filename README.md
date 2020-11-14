@@ -20,5 +20,5 @@ pip install -r requirements.txt
 # Launch
 Launch the bot from the project root. If you have several version of Python, you must use `python3.6`
 ```
-python3.6 /path/to/dctbot/bot.py
+python3.6 /path/to/dctbot/botocr.py
 ```
