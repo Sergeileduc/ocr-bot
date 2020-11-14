@@ -22,9 +22,3 @@ Launch the bot from the project root. If you have several version of Python, you
 ```
 python3.6 /path/to/dctbot/bot.py
 ```
-
-![example](https://raw.githubusercontent.com/Azrood/DCTbot/master/pictures/example.JPG)
-
-A screenshot from the embed help command.
-
-![example2](https://raw.githubusercontent.com/Azrood/DCTbot/master/pictures/example%202.JPG)
