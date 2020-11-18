@@ -14,6 +14,7 @@ from google.cloud import vision, vision_v1
 logger = logging.getLogger(__name__)
 
 LINE_BREAKS_PATTERN = r"([\w\s,])(?:\n)"
+firs_word = re.compile(r'((?<=[\.\?!]\s)(\w+)|(^\w+))')
 
 
 def no_ext(filename):
@@ -28,16 +29,24 @@ def remove_double_spaces(longstring):
     return longstring.replace("  ", " ")
 
 
+def cap(match):
+    return(match.group().capitalize())
+
+
+# def sentence_case(text):
+#     # Split into sentences. Therefore, find all text that ends
+#     # with punctuation followed by white space or end of string.
+#     sentences = re.findall(r'[^.!?]+[.!?](?:\s|\Z)', text)
+
+#     # Capitalize the first letter of each sentence
+#     sentences = [x[0].upper() + x[1:] for x in sentences]
+
+#     # Combine sentences
+#     return ''.join(sentences)
+
+
 def sentence_case(text):
-    # Split into sentences. Therefore, find all text that ends
-    # with punctuation followed by white space or end of string.
-    sentences = re.findall(r'[^.!?]+[.!?](?:\s|\Z)', text)
-
-    # Capitalize the first letter of each sentence
-    sentences = [x[0].upper() + x[1:] for x in sentences]
-
-    # Combine sentences
-    return ''.join(sentences)
+    return firs_word.sub(cap, text)
 
 
 def detect_document(uri):
@@ -49,6 +58,10 @@ def detect_document(uri):
     image.source.image_uri = uri
 
     response = client.document_text_detection(image=image)  # pylint: disable=no-member  # noqa: E501
+    
+    # texts = response.text_annotations
+    # for text in texts:
+    #     logger.debug(text.description)
 
     breaks = vision_v1.types.TextAnnotation.DetectedBreak.BreakType
     paragraphs = []
@@ -77,15 +90,19 @@ def detect_document(uri):
 
     # Make a page string
     page = '\n'.join(paragraphs).lower()
+    logger.debug("JOIN PARAGRAPH :\n%s", page)
 
     # Remove dummy line breaks
     page = remove_dummy_line_breaks(page)
+    logger.debug("DUMMY LINE BREAKS :\n%s", page)
 
     # Remove double sapces
     page = remove_double_spaces(page)
+    logger.debug("DOUBLE SPACES :\n%s", page)
 
     # Capitalize sentences
     page = sentence_case(page)
+    logger.debug("SENTENCE CASES :\n%s", page)
 
     # page_num = no_ext(uri.split("/")[-1])
 
@@ -107,7 +124,7 @@ class Ocr(commands.Cog):
         async with ctx.channel.typing():
             extracted_text = detect_document(image_url)
         if len(extracted_text) > 2048:
-            #Send result in a file
+            # Send result in a file
             file_ = f'trads/{trad_name}.txt'
             with open(file_, 'w') as text:
                 text.write(extracted_text)
@@ -119,3 +136,9 @@ class Ocr(commands.Cog):
             embed = discord.Embed(title=trad_name,
                                   description=extracted_text)
             await ctx.send(embed=embed)
+
+    @commands.command()
+    async def ping(self, ctx):
+        logger.info("Info message in cogs.ocr")
+        logger.debug("Debug message in cogs.ocr")
+        await ctx.send("Pong !")

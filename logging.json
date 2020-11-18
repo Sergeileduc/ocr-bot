@@ -7,6 +7,9 @@
       },
       "other": {
         "format": "%(asctime)s | %(name)10s | %(levelname)8s | %(message)s"
+      },
+      "long": {
+        "format": "%(asctime)s | %(name)10s | %(levelname)8s \n    %(message)s"
       }
     },
   
@@ -38,11 +41,11 @@
         "encoding": "utf8"
       },
 
-      "modo_file_handler": {
+      "ocr_file_handler": {
         "class": "logging.handlers.RotatingFileHandler",
-        "level": "INFO",
-        "formatter": "other",
-        "filename": "modo.log",
+        "level": "DEBUG",
+        "formatter": "long",
+        "filename": "ocr.log",
         "maxBytes": 102400,
         "backupCount": 2,
         "encoding": "utf8"
@@ -50,9 +53,9 @@
     },
   
     "loggers": {
-      "cogs.mod": {
+      "cogs": {
         "level": "INFO",
-        "handlers": ["console", "modo_file_handler", "error_file_handler"],
+        "handlers": ["console", "ocr_file_handler", "error_file_handler"],
         "propagate": false
       }
     },

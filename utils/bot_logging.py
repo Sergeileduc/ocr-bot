@@ -16,6 +16,7 @@ def setup_logging(
     """Setup logging configuration
 
     """
+    # Load config from json file
     path = default_path
     if os.path.exists(path):
         with open(path, 'rt') as f:

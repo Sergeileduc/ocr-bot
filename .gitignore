@@ -12,6 +12,7 @@ logs.json
 errors.log
 info.log*
 modo.log
+ocr.log
 
 # Unit test / coverage reports
 htmlcov/

@@ -5,7 +5,6 @@
 import argparse
 import logging
 import os
-import sys
 
 import discord
 from discord.ext import commands
@@ -25,8 +24,8 @@ prefix = '!'
 
 # --debug option
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--debug",
-                    help="change prefix to '?'", action="store_true")
+parser.add_argument("-d", "--debug", help="change prefix to '?'", action="store_true")
+parser.add_argument("-v", "--verbosity", help="Verbosity", action="store_true")
 args = parser.parse_args()
 if args.debug:
     print("You are in debug mode.")
@@ -57,7 +56,11 @@ async def on_ready():
 setup_logging()
 logger = logging.getLogger(__name__)
 
-logger.info("This is an INFO message on the root logger.")
+if args.verbosity:
+    print("Verbose mode, setLevel to DEBUG")
+    logging.getLogger("cogs").setLevel(logging.DEBUG)
+
+# logger.info("This is an INFO message on the root logger.")
 # logger.warning("This is a WARNING message of the root logger")
 # logger.error("This is a ERROR message of the root logger")
 # logger.critical("This is a CRITICAL message of the root logger")
