@@ -1,9 +1,9 @@
-discord.py==1.5.*
+discord.py==1.5.1
 bs4
 google-api-python-client
 grpcio
 lxml
 praw
 pillow
-google-cloud-vision==2.0.*
+google-cloud-vision==2.0.0
 python-dotenv
