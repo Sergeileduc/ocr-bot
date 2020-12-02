@@ -25,7 +25,7 @@
         "class": "logging.handlers.RotatingFileHandler",
         "level": "INFO",
         "formatter": "simple",
-        "filename": "info.log",
+        "filename": "info_ocr.log",
         "maxBytes": 102400,
         "backupCount": 2,
         "encoding": "utf8"
@@ -35,7 +35,7 @@
         "class": "logging.handlers.RotatingFileHandler",
         "level": "ERROR",
         "formatter": "simple",
-        "filename": "errors.log",
+        "filename": "errors_ocr.log",
         "maxBytes": 102400,
         "backupCount": 2,
         "encoding": "utf8"
@@ -45,7 +45,7 @@
         "class": "logging.handlers.RotatingFileHandler",
         "level": "DEBUG",
         "formatter": "long",
-        "filename": "ocr.log",
+        "filename": "ocr_debug.log",
         "maxBytes": 102400,
         "backupCount": 2,
         "encoding": "utf8"
