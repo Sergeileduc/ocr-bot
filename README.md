@@ -22,3 +22,5 @@ Launch the bot from the project root. If you have several version of Python, you
 ```
 python3.6 /path/to/dctbot/botocr.py
 ```
+
+# Automatic deploy on Heroku
