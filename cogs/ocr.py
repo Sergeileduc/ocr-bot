@@ -8,13 +8,13 @@ import re
 
 import discord
 from discord.ext import commands
-from google.cloud import vision, vision_v1
+from google.cloud import vision
 
 
 logger = logging.getLogger(__name__)
 
 LINE_BREAKS_PATTERN = r"([\w\s,])(?:\n)"
-firs_word = re.compile(r'((?<=[\.\?!]\s)(\w+)|(^\w+))')
+FIRST_WORD = re.compile(r'((?<=[\.\?!]\s)(\w+)|(?<=\")(\w+)|(^\w+))', flags=re.MULTILINE)  # noqa: E501
 
 
 def no_ext(filename):
@@ -22,11 +22,12 @@ def no_ext(filename):
 
 
 def remove_dummy_line_breaks(longstring):
-    return re.sub(LINE_BREAKS_PATTERN, r"\1 ", longstring)
+    # rstrip because last line break becomes
+    return re.sub(LINE_BREAKS_PATTERN, r"\1 ", longstring).rstrip()
 
 
-def remove_double_spaces(longstring):
-    return longstring.replace("  ", " ")
+def remove_multiple_spaces(longstring):
+    return re.sub(r" +", " ", longstring, flags=re.MULTILINE)
 
 
 def cap(match):
@@ -46,7 +47,7 @@ def cap(match):
 
 
 def sentence_case(text):
-    return firs_word.sub(cap, text)
+    return FIRST_WORD.sub(cap, text)
 
 
 def detect_document(uri):
@@ -58,57 +59,24 @@ def detect_document(uri):
     image.source.image_uri = uri
 
     response = client.document_text_detection(image=image)  # pylint: disable=no-member  # noqa: E501
-    
-    # texts = response.text_annotations
-    # for text in texts:
-    #     logger.debug(text.description)
+    texts = response.text_annotations
 
-    breaks = vision_v1.types.TextAnnotation.DetectedBreak.BreakType
-    paragraphs = []
-    lines = []
+    if texts:
+        page = texts[0].description.lower()
 
-    for page in response.full_text_annotation.pages:
-        for block in page.blocks:
-            for paragraph in block.paragraphs:
-                para = ""
-                line = ""
-                for word in paragraph.words:
-                    for symbol in word.symbols:
-                        line += symbol.text
-                        if symbol.property.detected_break.type_ == breaks.SPACE:
-                            line += ' '
-                        if symbol.property.detected_break.type_ == breaks.EOL_SURE_SPACE:  # noqa: E 501
-                            line += ' '
-                            lines.append(line)
-                            para += line
-                            line = ''
-                        if symbol.property.detected_break.type_ == breaks.LINE_BREAK:  # noqa: E501
-                            lines.append(line)
-                            para += line
-                            line = ''
-                paragraphs.append(para)
+        # Remove dummy line breaks
+        page = remove_dummy_line_breaks(page)
+        logger.debug("DUMMY LINE BREAKS :\n%s", page)
 
-    # Make a page string
-    page = '\n'.join(paragraphs).lower()
-    logger.debug("JOIN PARAGRAPH :\n%s", page)
+        # Remove double sapces
+        page = remove_multiple_spaces(page)
+        logger.debug("DOUBLE SPACES :\n%s", page)
 
-    # Remove dummy line breaks
-    page = remove_dummy_line_breaks(page)
-    logger.debug("DUMMY LINE BREAKS :\n%s", page)
+        # Capitalize sentences
+        page = sentence_case(page)
+        logger.debug("SENTENCE CASES :\n%s", page)
 
-    # Remove double sapces
-    page = remove_double_spaces(page)
-    logger.debug("DOUBLE SPACES :\n%s", page)
-
-    # Capitalize sentences
-    page = sentence_case(page)
-    logger.debug("SENTENCE CASES :\n%s", page)
-
-    # page_num = no_ext(uri.split("/")[-1])
-
-    # page = f"{page_num}\n" + page
-
-    return page
+        return page
 
 
 class Ocr(commands.Cog):

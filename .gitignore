@@ -13,6 +13,9 @@ errors.log
 info.log*
 modo.log
 ocr.log
+errors_ocr.log
+info_ocr.log
+ocr_debug.log
 
 # Unit test / coverage reports
 htmlcov/
@@ -28,3 +31,4 @@ cov.xml
 .pytest_cache/
 /ocr_test.py
 google.json
+
