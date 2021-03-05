@@ -33,10 +33,10 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Write Google Credential file
-      run: |
-        echo $GOOGLE_CREDENTIALS >> $GOOGLE_APPLICATION_CREDENTIALS
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+        json: ${{ secrets.GOOGLE_CREDENTIALS }}
     - name: Validate JSON credentials file
       run: |
         cat $GOOGLE_APPLICATION_CREDENTIALS | jq -e . >/dev/null 2>&1  | echo ${PIPESTATUS[1]}
