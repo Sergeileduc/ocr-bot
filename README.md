@@ -1,3 +1,5 @@
+[![Python application](https://github.com/Sergeileduc/ocr-bot/actions/workflows/python-app.yml/badge.svg)](https://github.com/Sergeileduc/ocr-bot/actions/workflows/python-app.yml)
+
 # DCTbot
 Discord Bot with multiple features for a community server related to comicbooks.
 
