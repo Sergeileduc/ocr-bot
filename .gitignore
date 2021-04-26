@@ -9,13 +9,11 @@ venv/
 secret.py
 example.py
 logs.json
-errors.log
-info.log*
 modo.log
 ocr.log
-errors_ocr.log
-info_ocr.log
-ocr_debug.log
+errors_ocr.log*
+info_ocr.log*
+ocr_debug.log*
 nohup.out
 
 # Unit test / coverage reports
