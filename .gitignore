@@ -32,3 +32,4 @@ cov.xml
 google.json
 
 /my.secret
+/tests/ocr.txt
