@@ -31,7 +31,7 @@ def remove_multiple_spaces(longstring):
 
 
 def cap(match):
-    return(match.group().capitalize())
+    return (match.group().capitalize())
 
 
 # def sentence_case(text):
