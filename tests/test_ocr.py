@@ -20,7 +20,7 @@ def test_ocr_page():
                 '4.\n'
                 '"Every problem you may face, every obstacle in your way, is susceptible to proper planning."\n'
                 'Don\'t think about her now.\n'
-                'Wallbed.diblokk nyc then.\n'
+                'Wallbelde billed nyc then.\n'
                 'Tr faoli "Plan, my son. Plan well. With a sober mind. With an icy eye.')
 
     # For preparing the tests...
