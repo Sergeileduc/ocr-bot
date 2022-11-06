@@ -34,8 +34,12 @@ if args.debug:
     prefix = '?'
 # done with parsing options with argparser
 
+# parameters for the bot
+intents = discord.Intents.default()
+intents.message_content = True
+
 bot = commands.Bot(command_prefix=prefix, help_command=None,
-                   description=None, case_insensitive=True)
+                   description=None, case_insensitive=True, intents=intents)
 
 cogs_list = [
     cogs.Ocr,
@@ -51,7 +55,8 @@ async def on_ready():
     print('------')
     bot.prefix = prefix
     for cog in cogs_list:
-        bot.add_cog(cog(bot))
+        await bot.add_cog(cog(bot))
+    await bot.tree.sync()
 
 
 setup_logging(Path(__file__).resolve().parent / 'logging.json')

@@ -3,13 +3,13 @@
 """Tests Google vision OCR."""
 from dotenv import load_dotenv
 from cogs.ocr import detect_document
-from pathlib import Path
 
 
 load_dotenv()
 
 # for preparing the tests
 # ocr_text = open(Path("tests") / "ocr.txt", "w")
+
 
 def test_ocr_page():
     url = "https://cdn.discordapp.com/attachments/819981551353724949/1018078436184567808/King_In_Black_-_Black_Panther_2021_001-002.jpg"  # noqa: E501
