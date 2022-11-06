@@ -6,6 +6,7 @@ import logging
 
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 from .utils import no_ext, detect_document
 
@@ -18,9 +19,11 @@ class Ocr(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
-    async def ocr(self, ctx):
-        """Get text from image."""
-        attachment = ctx.message.attachments[0]
+    @app_commands.describe(attachment="L'image à analyser.")
+    async def ocr(self, ctx, attachment: discord.Attachment):
+        """Get text from image.
+        """
+        # attachment = ctx.message.attachments[0]
         image_url = attachment.url
         trad_name = no_ext(image_url.split("/")[-1]).replace("SPOILER_", "")
         async with ctx.channel.typing():
@@ -36,11 +39,12 @@ class Ocr(commands.Cog):
         else:
             # send an embed
             embed = discord.Embed(title=trad_name,
-                                  description=extracted_text)
+                                description=extracted_text)
             await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def ping(self, ctx):
+        "Ping the bot."
         logger.info("Info message in cogs.ocr")
         logger.debug("Debug message in cogs.ocr")
         await ctx.send("Pong !")
