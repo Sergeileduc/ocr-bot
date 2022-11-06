@@ -6,7 +6,6 @@ import logging
 
 import discord
 from discord.ext import commands
-from discord import app_commands
 
 from .utils import no_ext, detect_document
 
@@ -19,9 +18,13 @@ class Ocr(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
-    @app_commands.describe(attachment="L'image à analyser.")
     async def ocr(self, ctx, attachment: discord.Attachment):
         """Get text from image.
+        
+        Parameters
+        -----------
+        attachment: discord.Attachment
+            L'image à analyser
         """
         # attachment = ctx.message.attachments[0]
         image_url = attachment.url
