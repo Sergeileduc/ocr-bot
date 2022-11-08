@@ -7,8 +7,7 @@ import logging
 import discord
 from discord.ext import commands
 
-from .utils import no_ext, detect_document
-
+from .utils import detect_document, no_ext
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +19,7 @@ class Ocr(commands.Cog):
     @commands.hybrid_command()
     async def ocr(self, ctx, attachment: discord.Attachment):
         """Get text from image.
-        
+
         Parameters
         -----------
         attachment: discord.Attachment
@@ -42,7 +41,7 @@ class Ocr(commands.Cog):
         else:
             # send an embed
             embed = discord.Embed(title=trad_name,
-                                description=extracted_text)
+                                  description=extracted_text)
             await ctx.send(embed=embed)
 
     @commands.hybrid_command()

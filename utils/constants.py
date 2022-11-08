@@ -8,7 +8,7 @@ IGNORED_ERRORS = [
     "header",
     "help",
     "kick", "ban", "nomorespoil",
-    "recrutement", "timer", "choose","coinflip", "say", "edit", "roulette",
+    "recrutement", "timer", "choose", "coinflip", "say", "edit", "roulette",
     "team", "clear",
     "urban",
     "youtube", "youtubelist"

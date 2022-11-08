@@ -8,7 +8,6 @@ import re
 
 from google.cloud import vision
 
-
 logger = logging.getLogger(__name__)
 
 LINE_BREAKS_PATTERN = r"([\w\s,])(?:\n)"

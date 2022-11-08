@@ -2,8 +2,8 @@
 
 """Tests Google vision OCR."""
 from dotenv import load_dotenv
-from cogs.ocr import detect_document
 
+from cogs.ocr import detect_document
 
 load_dotenv()
 

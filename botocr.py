@@ -13,10 +13,8 @@ from discord.ext.commands import CommandNotFound
 from dotenv import load_dotenv
 
 import cogs
-
 from utils.bot_logging import setup_logging
 from utils.constants import IGNORE_COMMAND_NOT_FOUND
-
 
 # Parse a .env file and then load all the variables found as environment variables.
 load_dotenv()
@@ -46,6 +44,7 @@ bot = commands.Bot(command_prefix=prefix, help_command=None,
 cogs_list = [
     cogs.Ocr,
     ]
+
 
 @bot.event
 async def on_command_error(ctx, error):
