@@ -9,11 +9,13 @@ from pathlib import Path
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
 from dotenv import load_dotenv
 
 import cogs
 
 from utils.bot_logging import setup_logging
+from utils.constants import IGNORE_COMMAND_NOT_FOUND
 
 
 # Parse a .env file and then load all the variables found as environment variables.
@@ -44,6 +46,15 @@ bot = commands.Bot(command_prefix=prefix, help_command=None,
 cogs_list = [
     cogs.Ocr,
     ]
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, CommandNotFound):
+        print(error)
+        if error.args[0] in IGNORE_COMMAND_NOT_FOUND:
+            logger.error(f"Ignoring DCtrad commands : '{error}'")
+            return
+    logger.error(f"Ignoring : '{error}'")
 
 
 @bot.event
