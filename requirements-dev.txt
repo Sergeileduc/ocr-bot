@@ -6,3 +6,5 @@ dpytest>=0.0.20
 coverage
 flake8>=3.7.9
 pylint
+invoke
+isort
