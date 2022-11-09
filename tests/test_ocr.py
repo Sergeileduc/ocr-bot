@@ -12,6 +12,7 @@ load_dotenv()
 
 
 def test_ocr_page():
+    """Test google ocr."""
     url = "https://cdn.discordapp.com/attachments/819981551353724949/1018078436184567808/King_In_Black_-_Black_Panther_2021_001-002.jpg"  # noqa: E501
     page = detect_document(url)
     expected = ('"Attend me, t\'challa.\n'
