@@ -47,13 +47,14 @@ cogs_list = [
 
 
 @bot.event
-async def on_command_error(ctx, error):
+async def on_command_error(ctx, error):  # pylint: disable=unused-argument
+    """Handle the CommandNotFound errors."""
     if isinstance(error, CommandNotFound):
         print(error)
         if error.args[0] in IGNORE_COMMAND_NOT_FOUND:
-            logger.error(f"Ignoring DCtrad commands : '{error}'")
+            logger.warning("Ignoring DCtrad commands : '%s'", error)
             return
-    logger.error(f"Ignoring : '{error}'")
+    logger.warning("Ignoring : '%s'", error)
 
 
 @bot.event
@@ -82,8 +83,8 @@ if args.verbosity:
 # logger.critical("This is a CRITICAL message of the root logger")
 
 try:
-    logger.info(f"New bot ran with discord.py version : {discord.__version__}")
+    logger.info("New bot ran with discord.py version : %s", discord.__version__)
     bot.run(token)
-except Exception:
-    logger.critical(f"bot crashed with discord.py version : {discord.__version__}")
+except Exception:  # pylint: disable=broad-except
+    logger.critical("bot crashed with discord.py version : %s", {discord.__version__})
     logger.critical("Unexpected critical error", exc_info=True)

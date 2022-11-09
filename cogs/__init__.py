@@ -2,6 +2,5 @@
 # -*- coding: utf-8 -*-
 
 # flake8: noqa: F401
-
-# from .mod import Mod
+# pylint: disable=missing-module-docstring
 from .ocr import Ocr

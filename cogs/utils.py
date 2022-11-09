@@ -15,19 +15,23 @@ FIRST_WORD = re.compile(r'((?<=[\.\?!]\s)(\w+)|(?<=\")(\w+)|(^\w+))', flags=re.M
 
 
 def no_ext(filename):
+    """Remove extension."""
     return os.path.splitext(filename)[0]
 
 
 def remove_dummy_line_breaks(longstring):
+    """Remove dummy line breaks"""
     # rstrip because last line break becomes
     return re.sub(LINE_BREAKS_PATTERN, r"\1 ", longstring).rstrip()
 
 
 def remove_multiple_spaces(longstring):
+    "Remove multiple spaces."
     return re.sub(r" +", " ", longstring, flags=re.MULTILINE)
 
 
 def cap(match):
+    "Capitalize sentence."
     return (match.group().capitalize())
 
 
@@ -44,6 +48,15 @@ def cap(match):
 
 
 def sentence_case(text):
+    """Transform text, with multiple sentences, by adding Capital Letters on the
+    beginning of each sentence.
+
+    Args:
+        text (str): the text to transform
+
+    Returns:
+        str: Capitalized text
+    """
     return FIRST_WORD.sub(cap, text)
 
 
@@ -74,3 +87,4 @@ def detect_document(uri):
         logger.debug("SENTENCE CASES :\n%s", page)
 
         return page
+    return None

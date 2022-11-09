@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class Ocr(commands.Cog):
+    """Cog for making OCR with a discord command."""
     def __init__(self, bot):
         self.bot = bot
 
@@ -33,7 +34,7 @@ class Ocr(commands.Cog):
         if len(extracted_text) > 2048:
             # Send result in a file
             file_ = f'trads/{trad_name}.txt'
-            with open(file_, 'w') as text:
+            with open(file_, 'w', encoding='utf-8') as text:
                 text.write(extracted_text)
             # await ctx.send(extracted_text[:100])
             file_to_send = discord.File(file_)
