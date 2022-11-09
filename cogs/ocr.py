@@ -21,10 +21,8 @@ class Ocr(commands.Cog):
     async def ocr(self, ctx, attachment: discord.Attachment):
         """Get text from image.
 
-        Parameters
-        -----------
-        attachment: discord.Attachment
-            L'image à analyser
+        Args:
+            attachment (discord.Attachment): L'image à analyser
         """
         # attachment = ctx.message.attachments[0]
         image_url = attachment.url
