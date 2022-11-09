@@ -8,7 +8,7 @@ Discord Bot with multiple features for a community server related to comicbooks.
 
 | Stack        | Version  |
 |--------------|----------|
-| Python       | 3.6+     |
+| Python       | 3.8+     |
 
 If you don't have `pip`, you have to install it with this command line (on Linux):
 
@@ -24,10 +24,10 @@ pip install -r requirements.txt
 
 ## Launch
 
-Launch the bot from the project root. If you have several version of Python, you must use `python3.6`
+Launch the bot from the project root. If you have several version of Python, you must use `python3.8`
 
 ```shell
-python3.6 /path/to/dctbot/botocr.py
+python3.8 /path/to/dctbot/botocr.py
 ```
 
 ## Automatic deploy on Heroku

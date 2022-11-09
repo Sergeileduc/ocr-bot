@@ -16,6 +16,8 @@ from invoke import task
 > inv lint
 > inv coverage
 etc...
+Available commands are shown using
+> inv --list
 # Autocompletion
 For auto completion, just run:
 `source <(inv --print-completion-script bash)`
