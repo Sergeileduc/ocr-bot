@@ -19,6 +19,7 @@ from utils.constants import IGNORE_COMMAND_NOT_FOUND
 # Parse a .env file and then load all the variables found as environment variables.
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
+deepltoken = os.getenv("DEEPL")
 # Done
 
 prefix = '!'
@@ -63,6 +64,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
+    bot.deepltoken = deepltoken
     print('------')
     bot.prefix = prefix
     for cog in cogs_list:
