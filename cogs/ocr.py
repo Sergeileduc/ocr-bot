@@ -35,9 +35,7 @@ class Ocr(commands.Cog):
             file_ = f'trads/{trad_name}.txt'
             with open(file_, 'w', encoding='utf-8') as text:
                 text.write(extracted_text)
-            # await ctx.send(extracted_text[:100])
-            file_to_send = discord.File(file_)
-            await ctx.send(file=file_to_send)
+            await ctx.send(file=discord.File(file_))
         else:
             # send an embed
             embed = discord.Embed(title=trad_name,
@@ -56,22 +54,16 @@ class Ocr(commands.Cog):
         trad_name = no_ext(image_url.split("/")[-1]).replace("SPOILER_", "")
         async with ctx.channel.typing():
             extracted_text = detect_document(image_url)
-        print(extracted_text[:50])
-
-        translator = deepl.Translator(self.bot.deepltoken)
-        result = translator.translate_text(extracted_text, target_lang="FR")
+            translator = deepl.Translator(self.bot.deepltoken)
+            result = translator.translate_text(extracted_text, target_lang="FR")
         translated_text = result.text
-        print("--------------------------")
-        print(translated_text[:50])
 
-        if len(extracted_text) > 2048:
+        if len(translated_text) > 2048:
             # Send result in a file
             file_ = f'trads/{trad_name}.txt'
             with open(file_, 'w', encoding='utf-8') as text:
                 text.write(translated_text)
-            # await ctx.send(extracted_text[:100])
-            file_to_send = discord.File(file_)
-            await ctx.send(file=file_to_send)
+            await ctx.send(file=discord.File(file_))
         else:
             # send an embed
             embed = discord.Embed(title=trad_name,
