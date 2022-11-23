@@ -1,6 +1,6 @@
 [![Python application](https://github.com/Sergeileduc/ocr-bot/actions/workflows/python-app.yml/badge.svg)](https://github.com/Sergeileduc/ocr-bot/actions/workflows/python-app.yml)[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b007b73d72234c868aea26bd09aacf35)](https://www.codacy.com/gh/Sergeileduc/ocr-bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sergeileduc/ocr-bot&amp;utm_campaign=Badge_Grade)
 
-# DCTbot
+# OCR bot
 
 Discord Bot with multiple features for a community server related to comicbooks.
 
