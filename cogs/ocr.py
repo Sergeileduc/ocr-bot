@@ -71,6 +71,22 @@ class Ocr(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.hybrid_command()
+    async def usage(self, ctx):
+        """Get API usage.
+        """
+        translator = deepl.Translator(self.bot.deepltoken)
+        usage = translator.get_usage()
+
+        descr = (f"Vous avez utilisé {(count := int(usage.character.count)):,} sur {(limit := int(usage.character.limit)):,} mots.\n"
+                 f"Votre ratio d'usage DeepLest de {count/limit:.2%}\n"
+                 f"Votre API est {'valide' if usage.character.valid else 'invalide'}.\n"
+                 f"{'Vous avez dépassé la limite' if usage.character.limit_reached else 'Limite pas encore dépassée.'}.")  # noqa: E501
+
+        embed = discord.Embed(title="API usage",
+                              description=descr)
+        await ctx.send(embed=embed)
+
+    @commands.hybrid_command()
     async def ping(self, ctx):
         "Ping the bot."
         logger.info("Info message in cogs.ocr")
