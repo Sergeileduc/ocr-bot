@@ -15,11 +15,11 @@ logger = logging.getLogger(__name__)
 
 class Ocr(commands.Cog):
     """Cog for making OCR with a discord command."""
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.hybrid_command()
-    async def ocr(self, ctx, attachment: discord.Attachment):
+    async def ocr(self, ctx: commands.Context, attachment: discord.Attachment):
         """Get text from image.
 
         Args:
@@ -42,9 +42,9 @@ class Ocr(commands.Cog):
                                   description=extracted_text)
             await ctx.send(embed=embed)
 
-    @commands.hybrid_command()
-    async def octrad(self, ctx, attachment: discord.Attachment):
-        """Get text from image.
+    @commands.hybrid_command(aliases=['octrad', 'ocrtrad'])
+    async def trad(self, ctx: commands.Context, attachment: discord.Attachment):
+        """Get text from image, and translate it.
 
         Args:
             attachment (discord.Attachment): L'image à analyser
@@ -58,20 +58,17 @@ class Ocr(commands.Cog):
             result = translator.translate_text(extracted_text, target_lang="FR")
         translated_text = result.text
 
-        if len(translated_text) > 2048:
-            # Send result in a file
+        if len(translated_text) > 2048:  # Send result in a file
             file_ = f'trads/{trad_name}.txt'
             with open(file_, 'w', encoding='utf-8') as text:
                 text.write(translated_text)
             await ctx.send(file=discord.File(file_))
-        else:
-            # send an embed
-            embed = discord.Embed(title=trad_name,
-                                  description=translated_text)
+        else:  # send an embed
+            embed = discord.Embed(title=trad_name, description=translated_text)
             await ctx.send(embed=embed)
 
     @commands.hybrid_command()
-    async def usage(self, ctx):
+    async def usage(self, ctx: commands.Context):
         """Get API usage.
         """
         translator = deepl.Translator(self.bot.deepltoken)
@@ -87,7 +84,7 @@ class Ocr(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.hybrid_command()
-    async def ping(self, ctx):
+    async def ping(self, ctx: commands.Context):
         "Ping the bot."
         logger.info("Info message in cogs.ocr")
         logger.debug("Debug message in cogs.ocr")
