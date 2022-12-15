@@ -1,4 +1,4 @@
 discord.py==2.1.0
-google-cloud-vision==3.1.4
+google-cloud-vision==3.2.0
 python-dotenv
 deepl
