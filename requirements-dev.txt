@@ -2,7 +2,7 @@
 
 asynctest
 pytest
-dpytest >= 0.6.8
+dpytest ~= 0.7
 coverage
 flake8 ~= 6.0
 pylint
