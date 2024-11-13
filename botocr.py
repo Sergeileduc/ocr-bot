@@ -22,7 +22,7 @@ token = os.getenv("DISCORD_TOKEN")
 deepltoken = os.getenv("DEEPL")
 # Done
 
-prefix = '!'
+PREFIX = '!'
 
 # --debug option
 parser = argparse.ArgumentParser()
@@ -32,18 +32,19 @@ args = parser.parse_args()
 if args.debug:
     print("You are in debug mode.")
     print("Prefix is now '?'")
-    prefix = '?'
+    PREFIX = '?'
 # done with parsing options with argparser
 
 # parameters for the bot
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix=prefix, help_command=None,
+bot = commands.Bot(command_prefix=PREFIX, help_command=None,
                    description=None, case_insensitive=True, intents=intents)
 
 cogs_list = [
     cogs.Ocr,
+    cogs.Mod,
     ]
 
 
@@ -66,7 +67,7 @@ async def on_ready():
     print(bot.user.id)
     bot.deepltoken = deepltoken
     print('------')
-    bot.prefix = prefix
+    bot.prefix = PREFIX
     for cog in cogs_list:
         await bot.add_cog(cog(bot))
     await bot.tree.sync()
